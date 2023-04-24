@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const { Circle, Square, Triangle } = require('./utils/shapes');
+const { Circle, Square, Triangle } = require('./lib/shapes');
 
 class Svg {
   constructor() {
@@ -31,12 +31,12 @@ const questions = [
   {
     type: 'input',
     name: 'text-color',
-    message: 'TEXT COLOR: Enter a color keyword (OR a hexadecimal number):',
+    message: 'TEXT COLOR: Enter a SVG color keyword (OR a hexadecimal number):',
   },
   {
     type: 'input',
     name: 'shape-color',
-    message: 'SHAPE COLOR: Enter a color keyword (OR a hexadecimal number):',
+    message: 'SHAPE COLOR: Enter a SVG color keyword (OR a hexadecimal number):',
   },
   {
     type: 'list',
@@ -53,7 +53,7 @@ function writeToFile(fileName, data) {
     if (err) {
       return console.log(err);
     }
-    console.log('Congratulations, you have Generated a logo.svg!');
+    console.log('YAY!!, you have Generated a logo.svg!');
   });
 }
 
@@ -98,7 +98,7 @@ async function init() {
   }
   userShape.setColor(userShapeColor);
 
-  // Create a new Svg instance and add the shape and text elements to it
+  // Create a new Svg and add the shape and text elements to it
   const svg = new Svg();
   svg.setTextElement(userText, userFontColor);
   svg.setShapeElement(userShape);
@@ -106,11 +106,13 @@ async function init() {
 
   // Print shape to log
 console.log("Displaying shape:\n\n" + svgString);
-//document.getElementById("svg_image").innerHTML = svgString;
+
 
 console.log("Shape generation complete!");
 console.log("Writing shape to file...");
-writeToFile(svg_file, svgString); 
+// putting created svg file into Examples folder
+const filePath = './Examples/' + svg_file;
+writeToFile(filePath, svgString); 
 }
 init()
 
